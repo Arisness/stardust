@@ -1,0 +1,4 @@
+@path: './'
+@class: ElAtla
+@method: ori(a, b)
+@method: green(c, d)
