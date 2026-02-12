@@ -4,3 +4,4 @@ pub mod constants;
 pub mod lexicon;
 pub mod syntax;
 pub mod semantic;
+pub mod codegen;

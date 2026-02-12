@@ -240,7 +240,7 @@ pub fn get_expression_type(node: NodeIndex, mut results: VecDeque<DataType>, hel
     }
 }
 
-pub fn run_semantic_analysis(ast: syntax::Tree) -> anyhow::Result<()> {
+pub fn run_semantic_analysis(ast: &syntax::Tree) -> anyhow::Result<()> {
     let mut dict = Dict::new();
     let mut helper = Helper::new();
 
@@ -270,7 +270,7 @@ pub fn run_semantic_analysis(ast: syntax::Tree) -> anyhow::Result<()> {
         Ok(()) => {}
     }
 
-    pbar.finish_with_message("Semantic analysis complete OwO!\n");
+    pbar.finish_with_message("Semantic analysis complete >w<!\n");
 
     // If there are any warnings, display them
     for (scope, variables) in dict.var.iter() {

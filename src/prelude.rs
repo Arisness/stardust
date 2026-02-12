@@ -1,7 +1,10 @@
-pub use crate::constants::*;
-pub use crate::lexicon;
-pub use crate::syntax;
-pub use crate::semantic;
+pub use crate::{
+    constants::*,
+    lexicon,
+    syntax,
+    semantic,
+    codegen,
+};
 pub use std::{
     fs::File,
     io::{ self, BufRead, Write },

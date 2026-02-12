@@ -1,5 +1,5 @@
 use crate::prelude::*;
-pub use thiserror::Error;
+use thiserror::Error;
 
 pub type VarDict = HashMap<Scope, HashMap<String, Variable>>;
 pub type FuncDict = HashMap<Scope, FuncDetails>;

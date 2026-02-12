@@ -8,7 +8,6 @@ impl PDA {
             ModeProto::Normal,
             vec![
                 TransitionBuilder::new("q_exp_keyword", Input::Token(TokenProto::At))
-                    .action(vec![Action::Tree(TreeAction::AddNode(Some(Node::Id(Id::At))))])
                     .build(),
             ]
         );
@@ -20,23 +19,17 @@ impl PDA {
                 TransitionBuilder::new("q_exp_colon", Input::Token(TokenProto::Path))
                     .action(vec![
                         Action::Tree(TreeAction::AddNode(Some(Node::Id(Id::Path)))),
-                        Action::Tree(TreeAction::GoUp),
                     ])
                     .push_stack(StackType::Path)
                     .build(),
 
                 TransitionBuilder::new("q_exp_colon", Input::Token(TokenProto::Class))
-                    .action(vec![
-                        Action::Tree(TreeAction::AddNode(Some(Node::Id(Id::Class)))),
-                        Action::Tree(TreeAction::GoUp),
-                    ])
                     .push_stack(StackType::Class)
                     .build(),
 
                 TransitionBuilder::new("q_exp_colon", Input::Token(TokenProto::Method))
                     .action(vec![
                         Action::Tree(TreeAction::AddNode(Some(Node::Id(Id::Method)))),
-                        Action::Tree(TreeAction::GoUp),
                     ])
                     .push_stack(StackType::Method)
                     .build(),
@@ -71,7 +64,6 @@ impl PDA {
                 TransitionBuilder::new("q_exp_at", Input::Token(TokenProto::String))
                     .action(vec![
                         Action::Tree(TreeAction::AppendChild(None)),
-                        Action::Tree(TreeAction::GoUp),
                     ])
                     .pop_stack(StackType::Path)
                     .build(),
@@ -85,7 +77,6 @@ impl PDA {
                 TransitionBuilder::new("q_exp_at", Input::Token(TokenProto::Identifier))
                     .action(vec![
                         Action::Tree(TreeAction::AppendChild(None)),
-                        Action::Tree(TreeAction::GoUp),
                     ])
                     .pop_stack(StackType::Class)
                     .build(),

@@ -28,7 +28,10 @@ fn main() -> Result<()> {
     let ast = syntax::run_syntactic_analysis(tokens_list, &settings)?;
 
     // Run the semantic analysis
-    semantic::run_semantic_analysis(ast)?;
+    semantic::run_semantic_analysis(&ast)?;
+
+    // Run the code generation
+    codegen::run_code_generation(&ast)?;
 
     Ok(())
 }
