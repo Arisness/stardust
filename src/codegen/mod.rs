@@ -38,7 +38,7 @@ pub fn run_code_generation(ast: &syntax::Tree) -> anyhow::Result<()> {
     }
 
     pbar.finish_with_message("Code generation complete OwO!\n");
-    println!("{:?} test",symbol_table);
+    //println!("{:?} test",symbol_table);
     create_files(&mut symbol_table); 
     Ok(())
 }
