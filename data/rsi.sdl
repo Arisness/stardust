@@ -1,4 +1,7 @@
-@path: './'
+@path: 'test/elatla'
 @class: ElAtla
 @method: ori(a, b)
 @method: green(c, d)
+@path: 'test/test'
+@class: test
+@method: test(x, y)
