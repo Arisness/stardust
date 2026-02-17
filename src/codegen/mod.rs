@@ -1,6 +1,8 @@
 mod constants;
 mod visitor;
+mod template_engine;
 
+use template_engine::*;
 use crate::prelude::*;
 use constants::*;
 use visitor::*;
@@ -36,6 +38,7 @@ pub fn run_code_generation(ast: &syntax::Tree) -> anyhow::Result<()> {
     }
 
     pbar.finish_with_message("Code generation complete OwO!\n");
-
+    println!("{:?} test",symbol_table);
+    create_files(&mut symbol_table); 
     Ok(())
 }
