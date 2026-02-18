@@ -50,7 +50,8 @@ export class {{ className }} extends ClientConnector{
         let jsonToSend = this.createJSON(\"{{ path }}\", \"{{className}}\", \"{{methodName}}\", {{params}} );
         let jsonSerialized = this.serialize(jsonToSend);
         this.send(jsonSerialized)
-    }").unwrap();
+    }
+    ").unwrap();
 
     let class_template = env.get_template("class").unwrap();
 
@@ -86,19 +87,42 @@ fn create_server_files(file_path: &String, classes: &HashMap<String, ClassRecord
     if let Some(parent_dir) = path.parent() {
         fs::create_dir_all(parent_dir)?;
     }
-    
+
     let mut file = File::create(&file_path)?;
 
-    writeln!(file, "Symbol Table for File: {}", file_path)?;
-    writeln!(file, "================================")?;
+
+    let mut env = Environment::new();
+    env.add_template("class", "
+export class {{ className }}{
+{{ methods }}
+}").unwrap();
+
+    env.add_template("method", "    {{ methodName }}({{ params }}){
+    
+    }
+    ").unwrap();
+
+    let class_template = env.get_template("class").unwrap();
+
+    let method_template = env.get_template("method").unwrap();
+
 
     for (class_name, class_record) in classes {
-        writeln!(file, "\nClass: {}", class_name)?;
-        
+        let mut methods = String::new();
         for (method_name, method_record) in &class_record.methods {
             let params_list = method_record.params.join(", ");
-            writeln!(file, "  - Method: {}({})", method_name, params_list)?;
+            let method_render = method_template.render(context! {
+                methodName => method_name,
+                params => params_list
+            }).unwrap();
+            methods.push('\n');
+            methods.push_str(&method_render);
         }
+        let class_render = class_template.render(context! {
+            className => class_name,
+            methods => methods
+        }).unwrap();
+        writeln!(file, "{}" , class_render);
     }
     Ok(())
 }
