@@ -46,10 +46,11 @@ export class {{ className }} extends ClientConnector{
 {{ methods }}
 }").unwrap();
 
-    env.add_template("method", "    {{ methodName }}({{ params }}){
+    env.add_template("method", "    async {{ methodName }}({{ params }}){
         let jsonToSend = this.createJSON(\"{{ path }}\", \"{{className}}\", \"{{methodName}}\", {{params}} );
         let jsonSerialized = this.serialize(jsonToSend);
-        this.send(jsonSerialized)
+        let response = await this.send(jsonSerialized);
+        let JSON response = this.deserialize(response;
     }
     ").unwrap();
 
@@ -98,7 +99,7 @@ export class {{ className }}{
 }").unwrap();
 
     env.add_template("method", "    {{ methodName }}({{ params }}){
-    
+
     }
     ").unwrap();
 
