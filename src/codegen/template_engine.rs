@@ -50,7 +50,7 @@ export class {{ className }} extends ClientConnector{
         let jsonToSend = this.createJSON(\"{{ path }}\", \"{{className}}\", \"{{methodName}}\", {{params}} );
         let jsonSerialized = this.serialize(jsonToSend);
         let response = await this.send(jsonSerialized);
-        let JSON response = this.deserialize(response;
+        return this.deserialize(response);
     }
     ").unwrap();
 
