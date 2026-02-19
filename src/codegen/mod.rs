@@ -6,6 +6,7 @@ use template_engine::*;
 use crate::prelude::*;
 use constants::*;
 use visitor::*;
+use std::fs;
 
 pub fn run_code_generation(ast: &syntax::Tree) -> anyhow::Result<()> {
     let mut helper = Helper::default();
@@ -39,6 +40,9 @@ pub fn run_code_generation(ast: &syntax::Tree) -> anyhow::Result<()> {
 
     pbar.finish_with_message("Code generation complete OwO!\n");
     //println!("{:?} test",symbol_table);
-    create_files(&mut symbol_table); 
+    create_files(&mut symbol_table);
+    let client_conn_route = "data/ClientConnector.js";
+    let target_route = "result/client/ClientConnector.js";
+    fs::copy(client_conn_route, target_route)?;
     Ok(())
 }
