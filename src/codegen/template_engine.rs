@@ -40,7 +40,7 @@ fn create_client_files(file_path: &String, classes: &HashMap<String, ClassRecord
     let server_filename = format!("./BussinesObjects/{}.js", filename);
 
     let mut env = Environment::new();
-    env.add_template("class", "import {ClientConnector} from '{{ loc_dots }}/ClientConnector.js'
+    env.add_template("class", "import ClientConnector from '{{ loc_dots }}/ClientConnector.js'
 
 export class {{ className }} extends ClientConnector{
 {{ methods }}
@@ -49,8 +49,7 @@ export class {{ className }} extends ClientConnector{
     env.add_template("method", "    async {{ methodName }}({{ params }}){
         let jsonToSend = this.createJSON(\"{{ path }}\", \"{{className}}\", \"{{methodName}}\", {{params}} );
         let jsonSerialized = this.serialize(jsonToSend);
-        let response = await this.send(jsonSerialized);
-        return this.deserialize(response);
+        await this.send(jsonSerialized);
     }
     ").unwrap();
 

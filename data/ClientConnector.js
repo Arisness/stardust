@@ -3,7 +3,7 @@ import net from 'net';
 const PORT = 8080;
 const HOST = "localhost";
 
-const ClientConnector = new class {
+class ClientConnector {
 
     constructor(){
     }
@@ -16,8 +16,8 @@ const ClientConnector = new class {
         });
         client.on('data', (data) => {
             console.log('Server is barking');
-            client.close()
-            return data;
+            client.end()
+            console.log(this.deserialize(data));
         })
         client.on('end', () => {
             console.log('Link out')
@@ -31,7 +31,7 @@ const ClientConnector = new class {
  *      method: method to be called
  *      params: params needed
  */
-    createJson(path, className, method, ...params){
+    createJSON(path, className, method, ...params){
         const data = {
             path: path,
             class: className,
